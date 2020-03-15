@@ -1,0 +1,269 @@
+#? stdtmpl | standard
+#
+# import json
+#
+#proc genMain(): string =
+# result = ""
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Homepage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+ 
+</head>
+<body> 
+ 
+<div class="jumbotron align-middle text-center">
+  <h1><a href="http://127.0.0.1:5000">Mini Bank</a></h1>      
+</div>
+
+  <div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Create An Account</h5>
+    <p class="card-text"></p>
+    <a href="http://127.0.0.1:5000/register" class="btn btn-primary">-></a>
+  </div>
+  <div class="card">
+  <div class="card-body">
+    <h5>Or</h5>
+  </div>
+</div>
+  <div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Login</h5>
+    <p class="card-text"></p>
+    <a href="http://127.0.0.1:5000/login" class="btn btn-primary">-></a>
+  </div>
+</div>
+
+</body>
+</html>
+#end proc
+#
+#
+#proc genUser(): string =
+# result = ""
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homepage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+ 
+</head>
+<body> 
+ 
+<div class="jumbotron align-middle text-center">
+  <h1><a href="http://127.0.0.1:5000">Mini Bank</a></h1>      
+</div>
+<ul class="d-flex justify-content-between bg-light" style="list-style-type:none;">
+  <li><a href="http://127.0.0.1:5000/transactions" class="btn">See Transactions</a></li>
+  <li><a href="http://127.0.0.1:5000/transactionForm" class="btn">Create Transaction</a></li>
+  <li><a href="http://127.0.0.1:5000/logout" class="btn">Logout</a></li>
+</ul>
+ <div class="jumbotron align-middle text-center">
+<div class="jumbotron align-middle text-center"><h5>User Name</h5><h5>
+$name
+</h5></div>
+<div class="jumbotron align-middle text-center"><h5>User Balance</h5><h5>
+$balance
+</h5></div>
+</div>
+</body>
+</html>
+#end proc
+#
+#
+#proc genRegs(error:string): string =
+
+# result = ""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+#var parsedObject = %* {"errorName":"","errorEmail":"","errorPass": "","errorCpass":""}
+#if error.len>0:
+    # parsedObject = parseJson(error)
+#end if  
+<div class="container">
+  <h2>Create Account Form</h2>
+  <form method="post" action="http://127.0.0.1:5000/register">
+  <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+      ${parsedObject["errorName"].getStr()}
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      ${parsedObject["errorEmail"].getStr()}
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+      ${parsedObject["errorPass"].getStr()}
+    </div>
+    <div class="form-group">
+      <label for="cpwd">Confirm Password:</label>
+      <input type="password" class="form-control" id="cpwd" placeholder="Enter password again" name="cpwd">
+      ${parsedObject["errorCpass"].getStr()}
+    </div>
+    
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
+
+#end proc
+#proc genLog(error:string): string =
+
+# result = ""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Create Account Form</h2>
+  <form method="post" action="http://127.0.0.1:5000/login">
+
+#var parsedObject = %* {"errorEmail": "", "errorPass":""}
+#if error.len>0:
+    # parsedObject = parseJson(error)
+#end if        
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      ${parsedObject["errorEmail"].getStr()}
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+      ${parsedObject["errorPass"].getStr()}
+    </div>
+
+    
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
+
+
+#end proc
+#
+#
+#proc genTransactions(): string =
+
+# result = ""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>All Transaction</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Transaction id</th>
+      <th scope="col">Type</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+    </tr>
+  </thead>
+  <tbody>
+#if db.tryExec(sql"SELECT * FROM transactionn where userid =?",userid):
+      #for row in db.fastRows(sql"SELECT * FROM transactionn where userid =?",userid):
+                    #echo row  
+                
+                <tr>
+                <td>${row[0]}</td>
+                <td>${row[2]}</td>
+                <td>${row[3]}</td>
+                <td>${row[4]}</td>
+                <td>${row[5]}</td>
+                </tr>
+
+      #end for
+      </tbody>
+#end if  
+</table>             
+</div>
+
+</body>
+</html>
+
+#end proc
+#
+#
+#proc genTran(): string =
+
+# result = ""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Create Account Form</h2>
+  <form method="post" action="http://127.0.0.1:5000/transaction">
+  <div class="form-group">
+      <label for="name">Type:</label>
+  <select name="type" class="class="form-control"">
+  
+  <option value="debit">Debit</option>
+  <option value="credit">Credit</option>
+  </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="cpwd">Amount:</label>
+      <input type="number" class="form-control" id="cpwd" placeholder="Enter Amount" name="amount">
+    </div>
+    
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
+
+#end proc
